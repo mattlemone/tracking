@@ -1,16 +1,20 @@
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+package com.example.shipmenttracking
 
-class TrackerViewHelper {
+import androidx.compose.runtime.*
+
+class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
     var shipmentId by mutableStateOf("")
-    var shipmentNotes by mutableStateOf(emptyList<String>())
-    var shipmentUpdateHistory by mutableStateOf(emptyList<String>())
+    var shipmentNotes by mutableStateOf(listOf<String>())
+    var shipmentUpdateHistory by mutableStateOf(listOf<String>())
     var expectedShipmentDeliveryDate by mutableStateOf("")
     var shipmentStatus by mutableStateOf("")
 
+    init {
+        simulator.registerObserver(this)
+    }
+
     fun trackShipment(id: String) {
-        val shipment = TrackingSimulator.findShipment(id)
+        val shipment = simulator.findShipment(id)
         if (shipment != null) {
             shipmentId = shipment.id
             shipmentNotes = shipment.notes
@@ -30,5 +34,10 @@ class TrackerViewHelper {
         shipmentUpdateHistory = emptyList()
         expectedShipmentDeliveryDate = ""
         shipmentStatus = ""
+    }
+
+    override fun update() {
+        // Update the UI based on changes in the simulator
+        trackShipment(shipmentId)
     }
 }
