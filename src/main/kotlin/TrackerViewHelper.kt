@@ -3,7 +3,8 @@ package com.example.shipmenttracking
 import androidx.compose.runtime.*
 
 class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
-    var shipmentId by mutableStateOf("")
+    var shipmentIdInput by mutableStateOf("")
+    private var currentShipmentId by mutableStateOf("")
     var shipmentNotes by mutableStateOf(listOf<String>())
     var shipmentUpdateHistory by mutableStateOf(listOf<String>())
     var expectedShipmentDeliveryDate by mutableStateOf("")
@@ -14,12 +15,13 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
     }
 
     fun onShipmentIdChange(id: String) {
-        shipmentId = id
+        shipmentIdInput = id
     }
 
     fun trackShipment() {
-        val shipment = simulator.findShipment(shipmentId)
+        val shipment = simulator.findShipment(shipmentIdInput)
         if (shipment != null) {
+            currentShipmentId = shipmentIdInput
             shipmentNotes = shipment.notes
             shipmentUpdateHistory = shipment.updateHistory.map {
                 "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
@@ -27,6 +29,7 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
             expectedShipmentDeliveryDate = shipment.expectedDeliveryDateTimestamp.toString()
             shipmentStatus = shipment.status
         } else {
+            currentShipmentId = ""
             shipmentStatus = "Shipment not found"
             shipmentNotes = emptyList()
             shipmentUpdateHistory = emptyList()
@@ -35,7 +38,8 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
     }
 
     fun stopTracking() {
-        shipmentId = ""
+        currentShipmentId = ""
+        shipmentIdInput = ""
         shipmentNotes = emptyList()
         shipmentUpdateHistory = emptyList()
         expectedShipmentDeliveryDate = ""
@@ -44,7 +48,7 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
 
     override fun update() {
         // Update the UI based on changes in the simulator
-        if (shipmentId.isNotEmpty()) {
+        if (currentShipmentId.isNotEmpty()) {
             trackShipment()
         }
     }
