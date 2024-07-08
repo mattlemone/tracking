@@ -4,11 +4,19 @@ import androidx.compose.runtime.*
 
 data class TrackedShipment(
     val id: String,
-    val notes: List<String>,
-    val updateHistory: List<String>,
+    val notes: MutableList<String>,
+    val updateHistory: MutableList<String>,
     val expectedDeliveryDate: String,
     val status: String
-)
+) {
+    fun addNote(note: String) {
+        notes.add(note)
+    }
+
+    fun addUpdate(update: ShippingUpdate) {
+        updateHistory.add(update.toString())
+    }
+}
 
 class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
     var shipmentIdInput by mutableStateOf("")
@@ -27,10 +35,10 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
         if (shipment != null) {
             val newShipment = TrackedShipment(
                 id = shipmentIdInput,
-                notes = shipment.notes,
+                notes = shipment.notes.toMutableList(),  // Convert to MutableList
                 updateHistory = shipment.updateHistory.map {
                     "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
-                },
+                }.toMutableList(),  // Convert to MutableList
                 expectedDeliveryDate = shipment.expectedDeliveryDateTimestamp.toString(),
                 status = shipment.status
             )
@@ -38,8 +46,8 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
         } else {
             trackedShipments = trackedShipments + TrackedShipment(
                 id = shipmentIdInput,
-                notes = emptyList(),
-                updateHistory = emptyList(),
+                notes = mutableListOf(),  // Use MutableList
+                updateHistory = mutableListOf(),  // Use MutableList
                 expectedDeliveryDate = "",
                 status = "Shipment not found"
             )
@@ -52,15 +60,14 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
     }
 
     override fun update() {
-        // Update the UI based on changes in the simulator
         trackedShipments = trackedShipments.map { shipment ->
             val updatedShipment = simulator.findShipment(shipment.id)
             if (updatedShipment != null) {
                 shipment.copy(
-                    notes = updatedShipment.notes,
+                    notes = updatedShipment.notes.toMutableList(),  // Convert to MutableList
                     updateHistory = updatedShipment.updateHistory.map {
                         "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
-                    },
+                    }.toMutableList(),  // Convert to MutableList
                     expectedDeliveryDate = updatedShipment.expectedDeliveryDateTimestamp.toString(),
                     status = updatedShipment.status
                 )
