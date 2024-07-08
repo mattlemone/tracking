@@ -2,13 +2,17 @@ package com.example.shipmenttracking
 
 import androidx.compose.runtime.*
 
+data class TrackedShipment(
+    val id: String,
+    val notes: List<String>,
+    val updateHistory: List<String>,
+    val expectedDeliveryDate: String,
+    val status: String
+)
+
 class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
     var shipmentIdInput by mutableStateOf("")
-    private var currentShipmentId by mutableStateOf("")
-    var shipmentNotes by mutableStateOf(listOf<String>())
-    var shipmentUpdateHistory by mutableStateOf(listOf<String>())
-    var expectedShipmentDeliveryDate by mutableStateOf("")
-    var shipmentStatus by mutableStateOf("")
+    var trackedShipments by mutableStateOf(listOf<TrackedShipment>())
 
     init {
         simulator.registerObserver(this)
@@ -21,35 +25,48 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
     fun trackShipment() {
         val shipment = simulator.findShipment(shipmentIdInput)
         if (shipment != null) {
-            currentShipmentId = shipmentIdInput
-            shipmentNotes = shipment.notes
-            shipmentUpdateHistory = shipment.updateHistory.map {
-                "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
-            }
-            expectedShipmentDeliveryDate = shipment.expectedDeliveryDateTimestamp.toString()
-            shipmentStatus = shipment.status
+            val newShipment = TrackedShipment(
+                id = shipmentIdInput,
+                notes = shipment.notes,
+                updateHistory = shipment.updateHistory.map {
+                    "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
+                },
+                expectedDeliveryDate = shipment.expectedDeliveryDateTimestamp.toString(),
+                status = shipment.status
+            )
+            trackedShipments = trackedShipments + newShipment
         } else {
-            currentShipmentId = ""
-            shipmentStatus = "Shipment not found"
-            shipmentNotes = emptyList()
-            shipmentUpdateHistory = emptyList()
-            expectedShipmentDeliveryDate = ""
+            trackedShipments = trackedShipments + TrackedShipment(
+                id = shipmentIdInput,
+                notes = emptyList(),
+                updateHistory = emptyList(),
+                expectedDeliveryDate = "",
+                status = "Shipment not found"
+            )
         }
+        shipmentIdInput = ""
     }
 
-    fun stopTracking() {
-        currentShipmentId = ""
-        shipmentIdInput = ""
-        shipmentNotes = emptyList()
-        shipmentUpdateHistory = emptyList()
-        expectedShipmentDeliveryDate = ""
-        shipmentStatus = ""
+    fun stopTracking(id: String) {
+        trackedShipments = trackedShipments.filter { it.id != id }
     }
 
     override fun update() {
         // Update the UI based on changes in the simulator
-        if (currentShipmentId.isNotEmpty()) {
-            trackShipment()
+        trackedShipments = trackedShipments.map { shipment ->
+            val updatedShipment = simulator.findShipment(shipment.id)
+            if (updatedShipment != null) {
+                shipment.copy(
+                    notes = updatedShipment.notes,
+                    updateHistory = updatedShipment.updateHistory.map {
+                        "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
+                    },
+                    expectedDeliveryDate = updatedShipment.expectedDeliveryDateTimestamp.toString(),
+                    status = updatedShipment.status
+                )
+            } else {
+                shipment.copy(status = "Shipment not found")
+            }
         }
     }
 }
