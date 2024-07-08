@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -12,10 +13,17 @@ fun ShipmentTrackerUI(trackerViewHelper: TrackerViewHelper) {
     Column(modifier = Modifier.padding(16.dp)) {
         TextField(
             value = trackerViewHelper.shipmentId,
-            onValueChange = { trackerViewHelper.trackShipment(it) },
+            onValueChange = { trackerViewHelper.onShipmentIdChange(it) },
             label = { Text("Enter Shipment ID") },
             modifier = Modifier.fillMaxWidth()
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = { trackerViewHelper.trackShipment() },
+
+        ) {
+            Text("Track")
+        }
         Spacer(modifier = Modifier.height(16.dp))
         Text("Shipment Status: ${trackerViewHelper.shipmentStatus}")
         Spacer(modifier = Modifier.height(16.dp))

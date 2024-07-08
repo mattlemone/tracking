@@ -13,10 +13,13 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
         simulator.registerObserver(this)
     }
 
-    fun trackShipment(id: String) {
-        val shipment = simulator.findShipment(id)
+    fun onShipmentIdChange(id: String) {
+        shipmentId = id
+    }
+
+    fun trackShipment() {
+        val shipment = simulator.findShipment(shipmentId)
         if (shipment != null) {
-            shipmentId = shipment.id
             shipmentNotes = shipment.notes
             shipmentUpdateHistory = shipment.updateHistory.map {
                 "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
@@ -24,7 +27,10 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
             expectedShipmentDeliveryDate = shipment.expectedDeliveryDateTimestamp.toString()
             shipmentStatus = shipment.status
         } else {
-            shipmentId = "Shipment not found"
+            shipmentStatus = "Shipment not found"
+            shipmentNotes = emptyList()
+            shipmentUpdateHistory = emptyList()
+            expectedShipmentDeliveryDate = ""
         }
     }
 
@@ -38,6 +44,8 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
 
     override fun update() {
         // Update the UI based on changes in the simulator
-        trackShipment(shipmentId)
+        if (shipmentId.isNotEmpty()) {
+            trackShipment()
+        }
     }
 }
