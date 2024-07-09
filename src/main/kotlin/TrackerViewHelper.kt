@@ -9,15 +9,7 @@ data class TrackedShipment(
     val updateHistory: MutableList<String>,
     val expectedDeliveryDate: String,
     val status: String
-) {
-    fun addNote(note: String) {
-        notes.add(note)
-    }
-
-    fun addUpdate(update: ShippingUpdate) {
-        updateHistory.add(update.toString())
-    }
-}
+)
 
 class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
     var shipmentIdInput by mutableStateOf("")

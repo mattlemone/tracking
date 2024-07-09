@@ -9,8 +9,7 @@ class CreatedStrategy : UpdateStrategy {
     override fun processUpdate(shipment: Shipment, otherInfo: String?) {
         shipment.status = "created"
         shipment.addUpdate(ShippingUpdate("created", "created", System.currentTimeMillis()))
-        shipment.notes.add("Shipment created with ID: ${shipment.id}")
-        println("created")
+        println("created ${shipment}")
     }
 }
 
@@ -19,8 +18,7 @@ class ShippedStrategy : UpdateStrategy {
         shipment.status = "shipped"
         shipment.expectedDeliveryDateTimestamp = otherInfo?.toLongOrNull() ?: 0L
         shipment.addUpdate(ShippingUpdate("shipped", "shipped", System.currentTimeMillis()))
-        shipment.notes.add("Shipment shipped. Expected delivery timestamp: $otherInfo")
-        println("shipped")
+        println("shipped ${shipment}")
     }
 }
 
@@ -28,8 +26,7 @@ class LocationStrategy : UpdateStrategy {
     override fun processUpdate(shipment: Shipment, otherInfo: String?) {
         shipment.currentLocation = otherInfo ?: "Unknown location"
         shipment.addUpdate(ShippingUpdate("location", "location", System.currentTimeMillis()))
-        shipment.notes.add("Location updated to: $otherInfo")
-        println("location")
+        println("location ${shipment}")
     }
 }
 
@@ -38,7 +35,7 @@ class DeliveredStrategy : UpdateStrategy {
         shipment.status = "delivered"
         shipment.addUpdate(ShippingUpdate("delivered", "delivered", System.currentTimeMillis()))
         shipment.notes.add("Shipment delivered.")
-        println("delivered")
+        println("delivered ${shipment}")
     }
 }
 
@@ -47,6 +44,6 @@ class NoteAddedStrategy : UpdateStrategy {
         shipment.addNote(otherInfo ?: "")
         shipment.addUpdate(ShippingUpdate("noteadded", "noteadded", System.currentTimeMillis()))
         shipment.notes.add("Note added: $otherInfo")
-        println("note added")
+        println("note added ${shipment}")
     }
 }
