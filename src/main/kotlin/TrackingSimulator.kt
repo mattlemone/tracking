@@ -24,7 +24,7 @@ class TrackingSimulator : ShipmentSubject {
         return shipments.find { it.id == id }
     }
 
-    fun addShipment(shipment: Shipment) {
+    private fun addShipment(shipment: Shipment) {
         if (findShipment(shipment.id) == null) {
             shipments.add(shipment)
         }
