@@ -11,7 +11,7 @@ data class TrackedShipment(
     val status: String
 )
 
-class TrackerViewHelper(private val simulator: TrackingSimulator) : Observer {
+class TrackerViewHelper(private val simulator: TrackingSimulator) : ShipmentObserver {
     var shipmentIdInput by mutableStateOf("")
     var trackedShipments by mutableStateOf(listOf<TrackedShipment>())
 

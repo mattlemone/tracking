@@ -2,20 +2,20 @@ import com.example.shipmenttracking.*
 import kotlinx.coroutines.delay
 import java.io.File
 
-class TrackingSimulator : Subject {
-    private val observers = mutableListOf<Observer>()
+class TrackingSimulator : ShipmentSubject {
+    private val shipmentObservers = mutableListOf<ShipmentObserver>()
     private val shipments = mutableListOf<Shipment>()
 
-    override fun registerObserver(observer: Observer) {
-        observers.add(observer)
+    override fun registerObserver(shipmentObserver: ShipmentObserver) {
+        shipmentObservers.add(shipmentObserver)
     }
 
-    override fun removeObserver(observer: Observer) {
-        observers.remove(observer)
+    override fun removeObserver(shipmentObserver: ShipmentObserver) {
+        shipmentObservers.remove(shipmentObserver)
     }
 
     override fun notifyObservers() {
-        for (observer in observers) {
+        for (observer in shipmentObservers) {
             observer.update()
         }
     }
@@ -27,7 +27,6 @@ class TrackingSimulator : Subject {
     fun addShipment(shipment: Shipment) {
         if (findShipment(shipment.id) == null) {
             shipments.add(shipment)
-            println("Adding $shipment")
         }
     }
 
