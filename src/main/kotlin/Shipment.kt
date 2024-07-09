@@ -1,5 +1,7 @@
 package com.example.shipmenttracking
 
+import UpdateStrategy
+
 data class Shipment(
     val id: String,
     var status: String,

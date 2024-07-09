@@ -1,5 +1,6 @@
 package com.example.shipmenttracking
 
+import TrackingSimulator
 import androidx.compose.runtime.*
 
 data class TrackedShipment(
