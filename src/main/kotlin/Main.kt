@@ -8,6 +8,9 @@ import androidx.compose.ui.window.application
 import com.example.shipmenttracking.ShipmentTrackerUI
 import com.example.shipmenttracking.TrackerViewHelper
 import com.example.shipmenttracking.TrackingSimulator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun MyApp() {
@@ -20,16 +23,18 @@ fun MyApp() {
 
 @ExperimentalComposeUiApi
 @Composable
-//@Preview(showBackground = true)
 fun DefaultPreview() {
     MyApp()
 }
 
 fun main() {
-//    TrackingSimulator.runSimulation(fileContent)
     application {
-        Window(onCloseRequest = ::exitApplication) {
+        val window = Window(onCloseRequest = ::exitApplication) {
             MyApp()
+        }
+
+        CoroutineScope(Dispatchers.Default).launch {
+            TrackingSimulator.runSimulation()
         }
     }
 }

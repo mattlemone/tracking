@@ -1,6 +1,10 @@
 package com.example.shipmenttracking
 
 import kotlinx.coroutines.delay
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
+import kotlin.concurrent.thread
 
 class TrackingSimulator : Subject {
     private val observers = mutableListOf<Observer>()
@@ -25,7 +29,10 @@ class TrackingSimulator : Subject {
     }
 
     fun addShipment(shipment: Shipment) {
-        shipments.add(shipment)
+        if (findShipment(shipment.id) == null) {
+            shipments.add(shipment)
+            println("Adding $shipment")
+        }
     }
 
     suspend fun updateShipments(fileContent: List<String>) {
@@ -45,19 +52,33 @@ class TrackingSimulator : Subject {
         val timestamp = parts[2].toLong()
         val otherInfo = parts.getOrNull(3)
 
-        val shipment = findShipment(shipmentId) ?: return
+        var shipment = findShipment(shipmentId)
+        if (shipment == null) {
+            shipment = Shipment(shipmentId, "", mutableListOf(), mutableListOf(), 0, "", null)
+            addShipment(shipment)
+        }
 
         val strategy = when (updateType) {
             "created" -> CreatedStrategy()
             "shipped" -> ShippedStrategy()
             "location" -> LocationStrategy()
             "delivered" -> DeliveredStrategy()
-            // Add other strategies...
             else -> return
         }
 
         shipment.strategy = strategy
         shipment.applyStrategy(otherInfo)
         shipment.addUpdate(ShippingUpdate(shipment.status, updateType, timestamp))
+    }
+
+    companion object {
+        suspend fun runSimulation() {
+            val filename = "src/main/kotlin/test.txt"  // Replace with your actual file path
+
+            val simulator = TrackingSimulator()
+            val fileContent = File(filename).readLines()
+
+            simulator.updateShipments(fileContent)
+        }
     }
 }
