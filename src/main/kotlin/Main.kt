@@ -7,7 +7,6 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.example.shipmenttracking.ShipmentTrackerUI
 import com.example.shipmenttracking.TrackerViewHelper
-import com.example.shipmenttracking.TrackingSimulator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,12 +18,6 @@ fun MyApp() {
     MaterialTheme {
         ShipmentTrackerUI(viewModel)
     }
-}
-
-@ExperimentalComposeUiApi
-@Composable
-fun DefaultPreview() {
-    MyApp()
 }
 
 fun main() {

@@ -1,10 +1,6 @@
-package com.example.shipmenttracking
-
+import com.example.shipmenttracking.*
 import kotlinx.coroutines.delay
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileReader
-import kotlin.concurrent.thread
 
 class TrackingSimulator : Subject {
     private val observers = mutableListOf<Observer>()
@@ -49,8 +45,7 @@ class TrackingSimulator : Subject {
 
         val updateType = parts[0]
         val shipmentId = parts[1]
-        val timestamp = parts[2].toLong()
-        val otherInfo = parts.getOrNull(3)
+        val otherInfo = parts.getOrNull(2)
 
         var shipment = findShipment(shipmentId)
         if (shipment == null) {
@@ -63,12 +58,12 @@ class TrackingSimulator : Subject {
             "shipped" -> ShippedStrategy()
             "location" -> LocationStrategy()
             "delivered" -> DeliveredStrategy()
+            "noteadded" -> NoteAddedStrategy()
             else -> return
         }
 
         shipment.strategy = strategy
         shipment.applyStrategy(otherInfo)
-        shipment.addUpdate(ShippingUpdate(shipment.status, updateType, timestamp))
     }
 
     companion object {
