@@ -6,7 +6,6 @@ import TrackingSimulator
 import androidx.compose.runtime.*
 
 class TrackerViewHelper(private val simulator: TrackingSimulator) : ShipmentObserver {
-    var shipmentIdInput by mutableStateOf("")
     var trackedShipments = mutableStateListOf<Shipment>()
 
     fun trackShipment(id: String) {
