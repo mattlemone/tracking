@@ -5,17 +5,9 @@ import ShipmentObserver
 import TrackingSimulator
 import androidx.compose.runtime.*
 
-data class TrackedShipment(
-    val id: String,
-    val notes: MutableList<String>,
-    val updateHistory: MutableList<String>,
-    val expectedDeliveryDate: String,
-    val status: String
-)
-
 class TrackerViewHelper(private val simulator: TrackingSimulator) : ShipmentObserver {
     var shipmentIdInput by mutableStateOf("")
-    var trackedShipments = mutableStateListOf<TrackedShipment>()
+    var trackedShipments = mutableStateListOf<Shipment>()
 
     fun onShipmentIdChange(id: String) {
         shipmentIdInput = id
@@ -27,42 +19,29 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : ShipmentObse
         if (shipment != null) {
             println("Shipment found: $shipment")
             shipment.registerObserver(this)
-            val newTrackedShipment = TrackedShipment(
-                id = shipmentIdInput,
-                notes = shipment.notes.toMutableList(),
-                updateHistory = shipment.updateHistory.map {
-                    "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
-                }.toMutableList(),
-                expectedDeliveryDate = shipment.expectedDeliveryDateTimestamp.toString(),
-                status = shipment.status
-            )
-            trackedShipments.add(newTrackedShipment)
+            if (!trackedShipments.contains(shipment)) {
+                trackedShipments.add(shipment)
+            }
         } else {
+            println("Shipment not found: $shipmentIdInput")
             // Handle shipment not found case
         }
         shipmentIdInput = ""
     }
 
     fun stopTracking(id: String) {
-        val index = trackedShipments.indexOfFirst { it.id == id }
-        if (index != -1) {
-            simulator.findShipment(id)?.removeObserver(this)
-            trackedShipments.removeAt(index)
+        val shipment = trackedShipments.find { it.id == id }
+        if (shipment != null) {
+            shipment.removeObserver(this)
+            trackedShipments.remove(shipment)
         }
     }
 
     override fun update(shipment: Shipment) {
+        // Force recomposition of the specific shipment
         val index = trackedShipments.indexOfFirst { it.id == shipment.id }
         if (index != -1) {
-            trackedShipments[index] = trackedShipments[index].copy(
-                notes = shipment.notes.toMutableList(),
-                updateHistory = shipment.updateHistory.map {
-                    "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
-                }.toMutableList(),
-                expectedDeliveryDate = shipment.expectedDeliveryDateTimestamp.toString(),
-                status = shipment.status
-            )
+            trackedShipments[index] = shipment
         }
     }
 }
-

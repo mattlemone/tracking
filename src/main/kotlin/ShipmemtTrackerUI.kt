@@ -1,5 +1,6 @@
 package com.example.shipmenttracking
 
+import Shipment
 import TrackingSimulator
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
@@ -40,25 +41,20 @@ fun ShipmentTrackerUI(trackerViewHelper: TrackerViewHelper) {
 }
 
 @Composable
-fun TrackedShipmentView(shipment: TrackedShipment, onStopTracking: () -> Unit) {
+fun TrackedShipmentView(shipment: Shipment, onStopTracking: () -> Unit) {
     Column {
         Text("Tracking Shipment ID: ${shipment.id}")
-        Spacer(modifier = Modifier.height(8.dp))
         Text("Shipment Status: ${shipment.status}")
-        Spacer(modifier = Modifier.height(8.dp))
-        Text("Expected Delivery Date: ${shipment.expectedDeliveryDate}")
-        Spacer(modifier = Modifier.height(8.dp))
+        Text("Expected Delivery Date: ${shipment.expectedDeliveryDateTimestamp}")
         Text("Shipment Notes:")
         shipment.notes.forEach { note ->
             Text("- $note")
         }
-        Spacer(modifier = Modifier.height(8.dp))
         Text("Update History:")
         shipment.updateHistory.forEach { update ->
-            Text("- $update")
+            Text("- Went from ${update.previousStatus} to ${update.newStatus} on ${update.timestamp}")
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = onStopTracking, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+        Button(onClick = onStopTracking) {
             Text("Stop Tracking")
         }
     }
