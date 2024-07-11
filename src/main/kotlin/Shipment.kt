@@ -1,14 +1,11 @@
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.example.shipmenttracking.ShipmentSubject
 import com.example.shipmenttracking.ShippingUpdate
 
 data class Shipment(
     val id: String,
     var status: String,
-    var notes: SnapshotStateList<String> = mutableStateListOf(),
-    var updateHistory: SnapshotStateList<ShippingUpdate> = mutableStateListOf(),
+    var notes: MutableList<String>,
+    var updateHistory: MutableList<ShippingUpdate>,
     var expectedDeliveryDateTimestamp: Long,
     var currentLocation: String,
     var strategy: UpdateStrategy? = null
