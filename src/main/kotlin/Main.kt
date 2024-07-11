@@ -10,8 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun MyApp() {
-    val simulator = remember { TrackingSimulator() }
+fun MyApp(simulator: TrackingSimulator) {
     val viewModel = remember { TrackerViewHelper(simulator) }
     MaterialTheme {
         ShipmentTrackerUI(viewModel)
@@ -19,13 +18,15 @@ fun MyApp() {
 }
 
 fun main() {
+    val simulator = TrackingSimulator()
+
     application {
         val window = Window(onCloseRequest = ::exitApplication) {
-            MyApp()
+            MyApp(simulator)
         }
 
         CoroutineScope(Dispatchers.Default).launch {
-            TrackingSimulator.runSimulation()
+            simulator.runSimulation()
         }
     }
 }

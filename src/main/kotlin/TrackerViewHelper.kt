@@ -9,24 +9,22 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : ShipmentObse
     var shipmentIdInput by mutableStateOf("")
     var trackedShipments = mutableStateListOf<Shipment>()
 
-    fun onShipmentIdChange(id: String) {
-        shipmentIdInput = id
-    }
+    fun trackShipment(id: String) {
+        println("Attempting to track shipment: $id")
+        if (trackedShipments.any { it.id == id }) {
+            println("Shipment $id is already being tracked")
+            return
+        }
 
-    fun trackShipment() {
-        println("Tracking shipment: $shipmentIdInput")
-        val shipment = simulator.findShipment(shipmentIdInput)
+        val shipment = simulator.findShipment(id)
         if (shipment != null) {
             println("Shipment found: $shipment")
             shipment.registerObserver(this)
-            if (!trackedShipments.contains(shipment)) {
-                trackedShipments.add(shipment)
-            }
+            trackedShipments.add(shipment)
+            println("Started tracking shipment: $id")
         } else {
-            println("Shipment not found: $shipmentIdInput")
-            // Handle shipment not found case
+            println("Shipment not found: $id")
         }
-        shipmentIdInput = ""
     }
 
     fun stopTracking(id: String) {
@@ -34,14 +32,16 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : ShipmentObse
         if (shipment != null) {
             shipment.removeObserver(this)
             trackedShipments.remove(shipment)
+            println("Stopped tracking shipment: $id")
         }
     }
 
     override fun update(shipment: Shipment) {
-        // Force recomposition of the specific shipment
+        println("Received update for shipment: ${shipment.id}")
         val index = trackedShipments.indexOfFirst { it.id == shipment.id }
         if (index != -1) {
             trackedShipments[index] = shipment
+            println("Updated tracked shipment: ${shipment.id}")
         }
     }
 }

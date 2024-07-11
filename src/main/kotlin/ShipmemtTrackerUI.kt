@@ -7,37 +7,49 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun ShipmentTrackerUI(trackerViewHelper: TrackerViewHelper) {
+    var forceRecompose by remember { mutableStateOf(0) }
+    var shipmentIdInput by remember { mutableStateOf("") }
+
     Column(modifier = Modifier.padding(16.dp).fillMaxSize()) {
         TextField(
-            value = trackerViewHelper.shipmentIdInput,
-            onValueChange = { trackerViewHelper.onShipmentIdChange(it) },
+            value = shipmentIdInput,
+            onValueChange = { shipmentIdInput = it },
             label = { Text("Enter Shipment ID") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { trackerViewHelper.trackShipment() },
+            onClick = {
+                trackerViewHelper.trackShipment(shipmentIdInput)
+                forceRecompose++ // Force recomposition
+            },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text("Track")
         }
         Spacer(modifier = Modifier.height(16.dp))
+        Text("Tracked Shipments (${trackerViewHelper.trackedShipments.size}):")
         LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
             items(trackerViewHelper.trackedShipments) { shipment ->
-                TrackedShipmentView(shipment, onStopTracking = {
-                    trackerViewHelper.stopTracking(shipment.id)
-                })
-                Spacer(modifier = Modifier.height(16.dp))
+                key(shipment.id) {
+                    TrackedShipmentView(shipment, onStopTracking = {
+                        trackerViewHelper.stopTracking(shipment.id)
+                        forceRecompose++ // Force recomposition
+                    })
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
             }
         }
     }
+    // This will force recomposition whenever forceRecompose changes
+    LaunchedEffect(forceRecompose) {}
 }
 
 @Composable
