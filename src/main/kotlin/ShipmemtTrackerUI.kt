@@ -35,7 +35,6 @@ fun ShipmentTrackerUI(trackerViewHelper: TrackerViewHelper) {
             Text("Track")
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Tracked Shipments (${trackerViewHelper.trackedShipments.size}):")
         LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
             items(trackerViewHelper.trackedShipments) { shipment ->
                 key(shipment.id) {

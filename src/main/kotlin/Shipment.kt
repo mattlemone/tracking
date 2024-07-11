@@ -1,11 +1,12 @@
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.example.shipmenttracking.ShipmentSubject
 import com.example.shipmenttracking.ShippingUpdate
 
 data class Shipment(
     val id: String,
     var status: String,
-    var notes: MutableList<String>,
-    var updateHistory: MutableList<ShippingUpdate>,
+    var notes: SnapshotStateList<String>,
+    var updateHistory: SnapshotStateList<ShippingUpdate>,
     var expectedDeliveryDateTimestamp: Long,
     var currentLocation: String,
     var strategy: UpdateStrategy? = null

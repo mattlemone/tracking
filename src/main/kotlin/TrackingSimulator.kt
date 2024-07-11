@@ -1,3 +1,4 @@
+import androidx.compose.runtime.mutableStateListOf
 import com.example.shipmenttracking.*
 import kotlinx.coroutines.delay
 import java.io.File
@@ -26,7 +27,7 @@ class TrackingSimulator {
 
         var shipment = findShipment(shipmentId)
         if (shipment == null) {
-            shipment = Shipment(shipmentId, "", mutableListOf(), mutableListOf(), 0, "", null)
+            shipment = Shipment(shipmentId, "", mutableStateListOf(), mutableStateListOf(), 0, "", null)
             addShipment(shipment)
         }
 
