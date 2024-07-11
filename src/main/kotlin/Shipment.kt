@@ -35,7 +35,7 @@ data class Shipment(
         notifyObservers()
     }
 
-    fun applyStrategy(otherInfo: String?) {
+    fun applyStrategy(otherInfo: List <String>) {
         strategy?.processUpdate(this, otherInfo)
         notifyObservers()
     }

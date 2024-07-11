@@ -23,7 +23,7 @@ class TrackingSimulator {
 
         val updateType = parts[0]
         val shipmentId = parts[1]
-        val otherInfo = parts.getOrNull(2)
+        val otherInfo = parts.drop(2)
 
         var shipment = findShipment(shipmentId)
         if (shipment == null) {
@@ -37,11 +37,15 @@ class TrackingSimulator {
             "location" -> LocationStrategy()
             "delivered" -> DeliveredStrategy()
             "noteadded" -> NoteAddedStrategy()
+            "lost" -> LostStrategy()
+            "canceled" -> CanceledStrategy()
             else -> return
         }
 
         shipment.strategy = strategy
-        shipment.applyStrategy(otherInfo)
+
+        // Apply strategy with otherInfo as a list of additional arguments
+        strategy.processUpdate(shipment, otherInfo)
     }
 
     suspend fun updateShipments(fileContent: List<String>) {
