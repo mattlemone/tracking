@@ -1,4 +1,7 @@
 import com.example.shipmenttracking.ShippingUpdate
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 interface UpdateStrategy {
     fun processUpdate(shipment: Shipment, otherInfo: List<String>)
@@ -7,7 +10,8 @@ interface UpdateStrategy {
 class CreatedStrategy : UpdateStrategy {
     override fun processUpdate(shipment: Shipment, otherInfo: List<String>) {
         shipment.status = "created"
-        shipment.addUpdate(ShippingUpdate("", shipment.status, System.currentTimeMillis()))
+        val date = timestampToDate(otherInfo[0])
+        shipment.addUpdate(ShippingUpdate("", shipment.status, date))
 //        println("created $shipment")
     }
 }
@@ -16,8 +20,11 @@ class ShippedStrategy : UpdateStrategy {
     override fun processUpdate(shipment: Shipment, otherInfo: List<String>) {
         var old = shipment.status
         shipment.status = "shipped"
-        shipment.expectedDeliveryDateTimestamp = otherInfo[1].toLongOrNull() ?: 0L
-        shipment.addUpdate(ShippingUpdate(old, shipment.status, otherInfo[0].toLongOrNull() ?: 0L))
+        var shippedDate = timestampToDate(otherInfo[1])
+        shipment.expectedDeliveryDateTimestamp = shippedDate
+
+        val date = timestampToDate(otherInfo[0])
+        shipment.addUpdate(ShippingUpdate(old, shipment.status, date))
 //        println("shipped $shipment")
     }
 }
@@ -26,7 +33,8 @@ class LocationStrategy : UpdateStrategy {
     override fun processUpdate(shipment: Shipment, otherInfo: List<String>) {
         var old = shipment.status
         shipment.currentLocation = otherInfo[1]
-        shipment.addUpdate(ShippingUpdate(old, shipment.currentLocation, otherInfo[0].toLongOrNull() ?: 0L))
+        val date = timestampToDate(otherInfo[0])
+        shipment.addUpdate(ShippingUpdate(old, shipment.currentLocation, date))
 //        println("location $shipment")
     }
 }
@@ -34,7 +42,8 @@ class LocationStrategy : UpdateStrategy {
 class DeliveredStrategy : UpdateStrategy {
     override fun processUpdate(shipment: Shipment, otherInfo: List<String>) {
         shipment.status = "delivered"
-        shipment.addUpdate(ShippingUpdate(shipment.currentLocation, shipment.status, otherInfo[0].toLongOrNull() ?: 0L))
+        val date = timestampToDate(otherInfo[0])
+        shipment.addUpdate(ShippingUpdate(shipment.currentLocation, shipment.status, date))
 //        println("delivered $shipment")
     }
 }
@@ -49,7 +58,8 @@ class LostStrategy : UpdateStrategy {
     override fun processUpdate(shipment: Shipment, otherInfo: List<String>) {
         var old = shipment.status
         shipment.status = "Lost"
-        shipment.addUpdate(ShippingUpdate(old, shipment.status, otherInfo[0].toLongOrNull() ?: 0L))
+        val date = timestampToDate(otherInfo[0])
+        shipment.addUpdate(ShippingUpdate(old, shipment.status, date))
     }
 }
 
@@ -57,6 +67,12 @@ class CanceledStrategy : UpdateStrategy {
     override fun processUpdate(shipment: Shipment, otherInfo: List<String>) {
         var old = shipment.status
         shipment.status = "Canceled"
-        shipment.addUpdate(ShippingUpdate(old, shipment.status, otherInfo[0].toLongOrNull() ?: 0L))
+        val date = timestampToDate(otherInfo[0])
+        shipment.addUpdate(ShippingUpdate(old, shipment.status, date))
     }
+}
+
+fun timestampToDate(timestampStr: String): LocalDateTime {
+    val timestamp = timestampStr.toLong()
+    return LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault())
 }

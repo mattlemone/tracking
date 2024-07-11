@@ -2,6 +2,7 @@ import androidx.compose.runtime.mutableStateListOf
 import com.example.shipmenttracking.*
 import kotlinx.coroutines.delay
 import java.io.File
+import java.time.LocalDateTime
 
 class TrackingSimulator {
     private val shipments = mutableListOf<Shipment>()
@@ -27,7 +28,7 @@ class TrackingSimulator {
 
         var shipment = findShipment(shipmentId)
         if (shipment == null) {
-            shipment = Shipment(shipmentId, "", mutableStateListOf(), mutableStateListOf(), 0, "", null)
+            shipment = Shipment(shipmentId, "", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "", null)
             addShipment(shipment)
         }
 
