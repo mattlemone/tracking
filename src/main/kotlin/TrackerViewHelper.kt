@@ -17,17 +17,15 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : ShipmentObse
     var shipmentIdInput by mutableStateOf("")
     var trackedShipments = mutableStateListOf<TrackedShipment>()
 
-    init {
-        simulator.registerObserver(this)
-    }
-
     fun onShipmentIdChange(id: String) {
         shipmentIdInput = id
     }
 
     fun trackShipment() {
+        println("Tracking shipment: $shipmentIdInput")
         val shipment = simulator.findShipment(shipmentIdInput)
         if (shipment != null) {
+            println("Shipment found: $shipment")
             shipment.registerObserver(this)
             val newTrackedShipment = TrackedShipment(
                 id = shipmentIdInput,
@@ -67,4 +65,4 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : ShipmentObse
         }
     }
 }
-}
+

@@ -6,20 +6,17 @@ class TrackingSimulator {
     private val shipments = mutableListOf<Shipment>()
 
     fun findShipment(id: String): Shipment? {
-        return shipments.find { it.id == id }
+        println("Searching for shipment with ID: $id")
+        println("Current shipments: ${shipments.map { it.id }}")
+        return shipments.find { it.id == id }.also {
+            println("Found shipment: $it")
+        }
     }
 
     private fun addShipment(shipment: Shipment) {
         if (findShipment(shipment.id) == null) {
             shipments.add(shipment)
-        }
-    }
-
-    suspend fun updateShipments(fileContent: List<String>) {
-        fileContent.forEach { line ->
-            processUpdate(line)
-            notifyObservers()
-            delay(1000)  // Process one update per second
+            println("Added new shipment: ${shipment.id}")
         }
     }
 
@@ -50,14 +47,27 @@ class TrackingSimulator {
         shipment.applyStrategy(otherInfo)
     }
 
+    suspend fun updateShipments(fileContent: List<String>) {
+        println("Starting to update shipments...")
+        fileContent.forEach { line ->
+            println("Processing line: $line")
+            processUpdate(line)
+            delay(1000)  // Process one update per second
+        }
+        println("Finished updating shipments. Total shipments: ${shipments.size}")
+    }
+
     companion object {
-        suspend fun runSimulation() {
+        suspend fun runSimulation(): TrackingSimulator {
             val filename = "src/main/kotlin/test.txt"  // Replace with your actual file path
+            println("Starting simulation with file: $filename")
 
             val simulator = TrackingSimulator()
             val fileContent = File(filename).readLines()
+            println("File content: $fileContent")
 
             simulator.updateShipments(fileContent)
+            return simulator
         }
     }
 }
