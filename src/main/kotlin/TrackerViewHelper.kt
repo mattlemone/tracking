@@ -13,7 +13,7 @@ data class TrackedShipment(
 
 class TrackerViewHelper(private val simulator: TrackingSimulator) : ShipmentObserver {
     var shipmentIdInput by mutableStateOf("")
-    var trackedShipments by mutableStateOf(listOf<TrackedShipment>())
+    var trackedShipments = mutableStateListOf<TrackedShipment>()
 
     init {
         simulator.registerObserver(this)
@@ -25,47 +25,51 @@ class TrackerViewHelper(private val simulator: TrackingSimulator) : ShipmentObse
 
     fun trackShipment() {
         val shipment = simulator.findShipment(shipmentIdInput)
-        if (shipment != null) {
-            val newShipment = TrackedShipment(
+        val newShipment = if (shipment != null) {
+            TrackedShipment(
                 id = shipmentIdInput,
-                notes = shipment.notes.toMutableList(),  // Convert to MutableList
+                notes = shipment.notes.toMutableList(),
                 updateHistory = shipment.updateHistory.map {
                     "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
-                }.toMutableList(),  // Convert to MutableList
+                }.toMutableList(),
                 expectedDeliveryDate = shipment.expectedDeliveryDateTimestamp.toString(),
                 status = shipment.status
             )
-            trackedShipments = trackedShipments + newShipment
         } else {
-            trackedShipments = trackedShipments + TrackedShipment(
+            TrackedShipment(
                 id = shipmentIdInput,
-                notes = mutableListOf(),  // Use MutableList
-                updateHistory = mutableListOf(),  // Use MutableList
+                notes = mutableListOf(),
+                updateHistory = mutableListOf(),
                 expectedDeliveryDate = "",
                 status = "Shipment not found"
             )
         }
+        trackedShipments.add(newShipment)
         shipmentIdInput = ""
     }
 
     fun stopTracking(id: String) {
-        trackedShipments = trackedShipments.filter { it.id != id }
+        val index = trackedShipments.indexOfFirst { it.id == id }
+        if (index != -1) {
+            trackedShipments.removeAt(index)
+        }
     }
 
     override fun update() {
-        trackedShipments = trackedShipments.map { shipment ->
+        for (i in trackedShipments.indices) {
+            val shipment = trackedShipments[i]
             val updatedShipment = simulator.findShipment(shipment.id)
             if (updatedShipment != null) {
-                shipment.copy(
-                    notes = updatedShipment.notes.toMutableList(),  // Convert to MutableList
+                trackedShipments[i] = shipment.copy(
+                    notes = updatedShipment.notes.toMutableList(),
                     updateHistory = updatedShipment.updateHistory.map {
                         "Shipment went from ${it.previousStatus} to ${it.newStatus} on ${it.timestamp}"
-                    }.toMutableList(),  // Convert to MutableList
+                    }.toMutableList(),
                     expectedDeliveryDate = updatedShipment.expectedDeliveryDateTimestamp.toString(),
                     status = updatedShipment.status
                 )
             } else {
-                shipment.copy(status = "Shipment not found")
+                trackedShipments[i] = shipment.copy(status = "Shipment not found")
             }
         }
     }
