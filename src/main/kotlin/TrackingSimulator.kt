@@ -1,6 +1,10 @@
+import androidx.compose.runtime.mutableStateListOf
 import com.example.shipmenttracking.*
 import kotlinx.coroutines.delay
 import java.io.File
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 class TrackingSimulator {
     private val shipments = mutableListOf<Shipment>()
@@ -22,25 +26,42 @@ class TrackingSimulator {
 
         val updateType = parts[0]
         val shipmentId = parts[1]
-        val otherInfo = parts.getOrNull(2)
+        val timestamp = parts.getOrNull(2)?.toLongOrNull() ?: 0
 
         var shipment = findShipment(shipmentId)
         if (shipment == null) {
-            shipment = Shipment(shipmentId, "", mutableListOf(), mutableListOf(), 0, "", null)
+            shipment = Shipment(shipmentId, "", mutableStateListOf(), mutableStateListOf(), 0, "", null)
             addShipment(shipment)
         }
 
         val strategy = when (updateType) {
-            "created" -> CreatedStrategy()
-            "shipped" -> ShippedStrategy()
-            "location" -> LocationStrategy()
-            "delivered" -> DeliveredStrategy()
-            "noteadded" -> NoteAddedStrategy()
+            "created" -> {
+                CreatedStrategy()
+            }
+            "shipped" -> {
+                ShippedStrategy()
+            }
+            "location" -> {
+                LocationStrategy()
+            }
+            "delivered" -> {
+                DeliveredStrategy()
+            }
+            "noteadded" -> {
+                NoteAddedStrategy()
+            }
             else -> return
         }
 
         shipment.strategy = strategy
-        shipment.applyStrategy(otherInfo)
+
+        // Apply timestamp if it's valid
+        if (timestamp > 0) {
+            val dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault())
+            shipment.expectedDeliveryDateTimestamp = timestamp
+        }
+
+        shipment.applyStrategy(null) // Assuming otherInfo is not used in this case
     }
 
     suspend fun updateShipments(fileContent: List<String>) {

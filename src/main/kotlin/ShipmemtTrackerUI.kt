@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ShipmentTrackerUI(trackerViewHelper: TrackerViewHelper) {
-    var forceRecompose by remember { mutableStateOf(0) }
     var shipmentIdInput by remember { mutableStateOf("") }
 
     Column(modifier = Modifier.padding(16.dp).fillMaxSize()) {
@@ -28,28 +27,23 @@ fun ShipmentTrackerUI(trackerViewHelper: TrackerViewHelper) {
         Button(
             onClick = {
                 trackerViewHelper.trackShipment(shipmentIdInput)
-                forceRecompose++ // Force recomposition
             },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text("Track")
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Tracked Shipments (${trackerViewHelper.trackedShipments.size}):")
         LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
             items(trackerViewHelper.trackedShipments) { shipment ->
                 key(shipment.id) {
                     TrackedShipmentView(shipment, onStopTracking = {
                         trackerViewHelper.stopTracking(shipment.id)
-                        forceRecompose++ // Force recomposition
                     })
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }
         }
     }
-    // This will force recomposition whenever forceRecompose changes
-    LaunchedEffect(forceRecompose) {}
 }
 
 @Composable
