@@ -1,5 +1,3 @@
-package com.example.shipmenttracking
-
 interface ShipmentObserver {
-    fun update()
+    fun update(shipment: Shipment)
 }
