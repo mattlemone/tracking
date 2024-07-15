@@ -25,8 +25,8 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
 
     // Mockito
-    testImplementation("org.mockito:mockito-core:5.3.1")
-    testImplementation("org.mockito:mockito-junit-jupiter:5.3.1")
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
     // Kotlin Test Library
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.20")
@@ -36,6 +36,14 @@ dependencies {
 
     // If you're using Kotlin coroutines in your tests
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib")
+    testImplementation ("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    testImplementation ("org.mockito:mockito-junit-jupiter:3.12.4")
 }
 
 compose.desktop {

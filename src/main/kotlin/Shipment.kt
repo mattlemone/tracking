@@ -35,9 +35,4 @@ data class Shipment(
         updateHistory.add(update)
         notifyObservers()
     }
-
-    fun applyStrategy(otherInfo: List <String>) {
-        strategy?.processUpdate(this, otherInfo)
-        notifyObservers()
-    }
 }

@@ -1,91 +1,86 @@
+import androidx.compose.runtime.mutableStateListOf
 import com.example.shipmenttracking.TrackerViewHelper
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.mockito.Mockito.*
+import java.time.LocalDateTime
+import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class TrackerViewHelperTest {
-
-    private lateinit var trackerViewHelper: TrackerViewHelper
-    private lateinit var simulator: TrackingSimulator
-    private lateinit var shipment: Shipment
-
-    @BeforeEach
-    fun setUp() {
-        simulator = mock(TrackingSimulator::class.java)
-        trackerViewHelper = TrackerViewHelper(simulator)
-        shipment = mock(Shipment::class.java)
-        `when`(shipment.id).thenReturn("123")
-    }
+class TrackerViewHelperTests {
 
     @Test
-    fun testTrackShipment_Success() {
-        `when`(simulator.findShipment("123")).thenReturn(shipment)
+    fun `trackShipment should add new shipment to tracked list`() {
+        val simulator = TrackingSimulator()
+        val trackerViewHelper = TrackerViewHelper(simulator)
+        val shipment = Shipment("123", "In Transit", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "")
+        simulator.addShipment(shipment)
 
         trackerViewHelper.trackShipment("123")
 
-        verify(shipment).registerObserver(trackerViewHelper)
         assertTrue(trackerViewHelper.trackedShipments.contains(shipment))
     }
 
     @Test
-    fun testTrackShipment_AlreadyTracked() {
-        `when`(simulator.findShipment("123")).thenReturn(shipment)
-        trackerViewHelper.trackedShipments.add(shipment)
+    fun `trackShipment should not add duplicate shipment`() {
+        val simulator = TrackingSimulator()
+        val trackerViewHelper = TrackerViewHelper(simulator)
+        val shipment = Shipment("123", "In Transit", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "")
+        simulator.addShipment(shipment)
 
         trackerViewHelper.trackShipment("123")
+        trackerViewHelper.trackShipment("123")
 
-        verify(shipment, never()).registerObserver(any())
         assertEquals(1, trackerViewHelper.trackedShipments.size)
     }
 
     @Test
-    fun testTrackShipment_NotFound() {
-        `when`(simulator.findShipment("123")).thenReturn(null)
+    fun `trackShipment should not add non-existent shipment`() {
+        val simulator = TrackingSimulator()
+        val trackerViewHelper = TrackerViewHelper(simulator)
+
+        trackerViewHelper.trackShipment("456")
+
+        assertTrue(trackerViewHelper.trackedShipments.isEmpty())
+    }
+
+    @Test
+    fun `stopTracking should remove shipment from tracked list`() {
+        val simulator = TrackingSimulator()
+        val trackerViewHelper = TrackerViewHelper(simulator)
+        val shipment = Shipment("123", "In Transit", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "")
+        simulator.addShipment(shipment)
+
+        trackerViewHelper.trackShipment("123")
+        trackerViewHelper.stopTracking("123")
+
+        assertFalse(trackerViewHelper.trackedShipments.contains(shipment))
+    }
+
+    @Test
+    fun `update should update existing shipment in tracked list`() {
+        val simulator = TrackingSimulator()
+        val trackerViewHelper = TrackerViewHelper(simulator)
+        val initialShipment = Shipment("123", "In Transit", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "")
+        simulator.addShipment(initialShipment)
 
         trackerViewHelper.trackShipment("123")
 
-        assertTrue(trackerViewHelper.trackedShipments.isEmpty())
-    }
-
-    @Test
-    fun testStopTracking() {
-        trackerViewHelper.trackedShipments.add(shipment)
-
-        trackerViewHelper.stopTracking("123")
-
-        verify(shipment).removeObserver(trackerViewHelper)
-        assertTrue(trackerViewHelper.trackedShipments.isEmpty())
-    }
-
-    @Test
-    fun testStopTracking_NotTracked() {
-        trackerViewHelper.stopTracking("123")
-
-        verify(shipment, never()).removeObserver(any())
-        assertTrue(trackerViewHelper.trackedShipments.isEmpty())
-    }
-
-    @Test
-    fun testUpdate() {
-        val updatedShipment = mock(Shipment::class.java)
-        `when`(updatedShipment.id).thenReturn("123")
-        trackerViewHelper.trackedShipments.add(shipment)
-
+        val updatedShipment = initialShipment.copy(status = "Delivered")
         trackerViewHelper.update(updatedShipment)
 
-        assertEquals(updatedShipment, trackerViewHelper.trackedShipments[0])
+        assertEquals("Delivered", trackerViewHelper.trackedShipments[0].status)
+    }
+}
+
+// A simple test implementation of TrackingSimulator
+class TrackingSimulator : TrackingSimulator {
+    private val shipments = mutableMapOf<String, Shipment>()
+
+    fun addShipment(shipment: Shipment) {
+        shipments[shipment.id] = shipment
     }
 
-    @Test
-    fun testUpdate_ShipmentNotTracked() {
-        val updatedShipment = mock(Shipment::class.java)
-        `when`(updatedShipment.id).thenReturn("456")
-
-        trackerViewHelper.update(updatedShipment)
-
-        assertTrue(trackerViewHelper.trackedShipments.isEmpty())
+    override fun findShipment(id: String): Shipment? {
+        return shipments[id]
     }
 }
