@@ -1,5 +1,4 @@
 import androidx.compose.runtime.mutableStateListOf
-import com.example.shipmenttracking.*
 import kotlinx.coroutines.delay
 import java.io.File
 import java.time.LocalDateTime
@@ -49,18 +48,15 @@ class TrackingSimulator {
         strategy.processUpdate(shipment, otherInfo)
     }
 
-    suspend fun updateShipments(fileContent: List<String>) {
+    internal suspend fun updateShipments(fileContent: List<String>) {
         fileContent.forEach { line ->
             processUpdate(line)
             delay(1000)  // Process one update per second
         }
     }
 
-    suspend fun runSimulation() {
-        val filename = "src/main/kotlin/test.txt"  // Replace with your actual file path
-
-        val fileContent = File(filename).readLines()
-
+    suspend fun runSimulation(filePath: String) {
+        val fileContent = File(filePath).readLines()
         updateShipments(fileContent)
     }
 }

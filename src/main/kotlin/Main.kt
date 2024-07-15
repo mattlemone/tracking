@@ -19,6 +19,7 @@ fun MyApp(simulator: TrackingSimulator) {
 
 fun main() {
     val simulator = TrackingSimulator()
+    val pathToFile = "src/main/kotlin/test.txt"
 
     application {
         val window = Window(onCloseRequest = ::exitApplication) {
@@ -26,7 +27,7 @@ fun main() {
         }
 
         CoroutineScope(Dispatchers.Default).launch {
-            simulator.runSimulation()
+            simulator.runSimulation(pathToFile)
         }
     }
 }
