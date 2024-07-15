@@ -4,7 +4,7 @@ import junit.framework.TestCase.assertEquals
 import java.time.LocalDateTime
 import kotlin.test.Test
 
-class MinimalShipmentTest {
+class ShipmentTest {
     @Test
     fun `should create shipment`() {
         val shipment = Shipment(
