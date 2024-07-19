@@ -8,15 +8,19 @@ import io.ktor.server.routing.*
 import java.io.File
 
 class TrackingServer {
-    fun startServer(){
+    fun startServer(simulator: TrackingSimulator){
+        println("Server started")
         embeddedServer(Netty, 8080) {
             routing {
                 get("/") {
                     call.respondText(File("index.html").readText(), ContentType.Text.Html)
                 }
 
-                post("/shipment"){
+                post("/data"){
                     val data = call.receiveText()
+                    val dataList = data.split(",")
+                    println("nice")
+                    simulator.updateShipments(dataList)
                 }
             }
         }.start(wait = true)

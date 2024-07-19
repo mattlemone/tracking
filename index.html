@@ -6,18 +6,32 @@
     <title>Tracker</title>
     <script type="text/javascript">
         function sendData(){
-            fetch("/data",{
-                method: "post",
+            console.log("Button clicked");
+            fetch("/data", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
                 body: document.getElementById("input").value
-            })
+            }).then(response => {
+                if (response.ok) {
+                    console.log("Data sent successfully");
+                } else {
+                    console.log("Failed to send data");
+                }
+            }).catch(error => {
+                console.error("Error:", error);
+            });
         }
     </script>
 </head>
 <body>
 <div>
-<label for="input">Enter something:</label>
-<input type="text" id="input" name="userInput">
-    <button>Update Shipment</button>
+    <h2>Update Shipment</h2>
+    <div>Example: status,name,update time, other information</div>
+    <br>
+    <input type="text" id="input" name="userInput">
+    <button onclick="sendData()">Update Shipment</button>
 </div>
 </body>
 </html>

@@ -17,13 +17,13 @@ class TrackingSimulator {
         }
     }
 
-    private fun processUpdate(line: String) {
-        val parts = line.split(',')
-        if (parts.size < 3) return
+    private fun processUpdate(line: List<String>) {
 
-        val updateType = parts[0]
-        val shipmentId = parts[1]
-        val otherInfo = parts.drop(2)
+        if (line.size < 3) return
+
+        val updateType = line[0]
+        val shipmentId = line[1]
+        val otherInfo = line.drop(2)
 
         var shipment = findShipment(shipmentId)
         if (shipment == null) {
@@ -49,10 +49,8 @@ class TrackingSimulator {
     }
 
     internal suspend fun updateShipments(fileContent: List<String>) {
-        fileContent.forEach { line ->
-            processUpdate(line)
-            delay(1000)  // Process one update per second
-        }
+        processUpdate(fileContent)
+        delay(1000)  // Process one update per second
     }
 
     suspend fun runSimulation(filePath: String) {

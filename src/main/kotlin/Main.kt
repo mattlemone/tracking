@@ -19,15 +19,15 @@ fun MyApp(simulator: TrackingSimulator) {
 
 fun main() {
     val simulator = TrackingSimulator()
-    val pathToFile = "src/main/kotlin/test.txt"
+    val server = TrackingServer()
+
+    CoroutineScope(Dispatchers.Default).launch {
+        server.startServer(simulator)
+    }
 
     application {
-        val window = Window(onCloseRequest = ::exitApplication) {
+        Window(onCloseRequest = ::exitApplication) {
             MyApp(simulator)
-        }
-
-        CoroutineScope(Dispatchers.Default).launch {
-            simulator.runSimulation(pathToFile)
         }
     }
 }
