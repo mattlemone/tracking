@@ -44,6 +44,12 @@ dependencies {
     testImplementation ("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     testImplementation ("org.mockito:mockito-junit-jupiter:3.12.4")
+
+    //Assn 3
+    implementation("io.ktor:ktor-server-core-jvm:2.3.12")
+    implementation("io.ktor:ktor-server-netty-jvm:2.3.12")
+    implementation("io.ktor:ktor-server-status-pages-jvm:2.3.12")
+    implementation("io.ktor:ktor-server-default-headers-jvm:2.3.12")
 }
 
 compose.desktop {

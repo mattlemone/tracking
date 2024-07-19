@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a34e39a7-5040-478f-8c88-f1a77665787d" name="Changes" comment="" />
+    <list default="true" id="a34e39a7-5040-478f-8c88-f1a77665787d" name="Changes" comment="Everything">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,24 +18,201 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Object" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mattlemone&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/mattlemone/tracking.git&quot;,
+    &quot;accountId&quot;: &quot;10e60871-b06b-4c3c-ad91-c4ab36fd1829&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
   <component name="ProjectId" id="2iiKgmt5jZRD0FryWub9WEBXTlh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Build tracking.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MainTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MainTest.testMainFunction.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MinimalShipmentTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ShipmentTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'tracking.test'.executor&quot;: &quot;Coverage&quot;,
+    &quot;Gradle.TrackerViewHelperTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TrackerViewHelperTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TrackerViewHelperTest.simple test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TrackerViewHelperTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TrackerViewHelperTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TrackerViewHelperTests.trackShipmentTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TrackingSimulatorTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UpdateStrategyTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UpdateStrategyTests.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.MainKt.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;kotlin-gradle-user-dirs&quot;: [
+      &quot;/Users/mlemon/.gradle&quot;
+    ]
   }
-}]]></component>
+}</component>
+  <component name="RunManager" selected="Kotlin.MainKt">
+    <configuration name="ShipmentTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ShipmentTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tests in 'tracking.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="TrackerViewHelperTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;TrackerViewHelperTests&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="TrackerViewHelperTests.trackShipmentTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;TrackerViewHelperTests.trackShipmentTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MainKt" />
+      <module name="tracking.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.MainKt" />
+        <item itemvalue="Gradle.Tests in 'tracking.test'" />
+        <item itemvalue="Gradle.TrackerViewHelperTests" />
+        <item itemvalue="Gradle.ShipmentTest" />
+        <item itemvalue="Gradle.TrackerViewHelperTests.trackShipmentTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -49,11 +229,304 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1719968072549</updated>
-      <workItem from="1719968073797" duration="1000" />
+      <workItem from="1719968073797" duration="54086000" />
+      <workItem from="1721342810978" duration="37000" />
     </task>
+    <task id="LOCAL-00001" summary="New Files">
+      <option name="closed" value="true" />
+      <created>1720372181245</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1720372181245</updated>
+    </task>
+    <task id="LOCAL-00002" summary="The main userinterface is implemented. Needs to update on shipment">
+      <option name="closed" value="true" />
+      <created>1720372964634</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1720372964634</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Implemented patterns">
+      <option name="closed" value="true" />
+      <created>1720374541789</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1720374541789</updated>
+    </task>
+    <task id="LOCAL-00004" summary="button and search work">
+      <option name="closed" value="true" />
+      <created>1720448900961</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1720448900961</updated>
+    </task>
+    <task id="LOCAL-00005" summary="search with stop tracking">
+      <option name="closed" value="true" />
+      <created>1720449552288</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1720449552288</updated>
+    </task>
+    <task id="LOCAL-00006" summary="search multiple packages and scroll">
+      <option name="closed" value="true" />
+      <created>1720449932191</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1720449932191</updated>
+    </task>
+    <task id="LOCAL-00007" summary="UI should be complete">
+      <option name="closed" value="true" />
+      <created>1720454068280</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1720454068280</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added test.txt">
+      <option name="closed" value="true" />
+      <created>1720475874564</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1720475874564</updated>
+    </task>
+    <task id="LOCAL-00009" summary="working on tracking simulator, committing while some stuff is working, working on adding shipments">
+      <option name="closed" value="true" />
+      <created>1720484676398</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1720484676399</updated>
+    </task>
+    <task id="LOCAL-00010" summary="strategies are updating but I am working on the ui to update as well">
+      <option name="closed" value="true" />
+      <created>1720488231793</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1720488231793</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fixed random imports">
+      <option name="closed" value="true" />
+      <created>1720488258945</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1720488258945</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Just working on getting UI to update with the rest of the shipments">
+      <option name="closed" value="true" />
+      <created>1720488917399</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1720488917399</updated>
+    </task>
+    <task id="LOCAL-00013" summary="renaming observer and subject">
+      <option name="closed" value="true" />
+      <created>1720568201461</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1720568201461</updated>
+    </task>
+    <task id="LOCAL-00014" summary="This is good">
+      <option name="closed" value="true" />
+      <created>1720569417017</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1720569417017</updated>
+    </task>
+    <task id="LOCAL-00015" summary="before subject refactor">
+      <option name="closed" value="true" />
+      <created>1720719111278</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1720719111278</updated>
+    </task>
+    <task id="LOCAL-00016" summary="mutable list of">
+      <option name="closed" value="true" />
+      <created>1720729571775</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1720729571776</updated>
+    </task>
+    <task id="LOCAL-00017" summary="updating almost there">
+      <option name="closed" value="true" />
+      <created>1720730117937</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1720730117937</updated>
+    </task>
+    <task id="LOCAL-00018" summary="print statements to debug">
+      <option name="closed" value="true" />
+      <created>1720731123499</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1720731123499</updated>
+    </task>
+    <task id="LOCAL-00019" summary="no more tracked shipment. Using the shipment as what is being observed now">
+      <option name="closed" value="true" />
+      <created>1720731476785</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1720731476785</updated>
+    </task>
+    <task id="LOCAL-00020" summary="ui will now show what shipments you are tracking!!">
+      <option name="closed" value="true" />
+      <created>1720733767224</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1720733767224</updated>
+    </task>
+    <task id="LOCAL-00021" summary="tracks and updates the status">
+      <option name="closed" value="true" />
+      <created>1720734553862</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1720734553862</updated>
+    </task>
+    <task id="LOCAL-00022" summary="updates work for reals">
+      <option name="closed" value="true" />
+      <created>1720737642024</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1720737642024</updated>
+    </task>
+    <task id="LOCAL-00023" summary="updates work really good">
+      <option name="closed" value="true" />
+      <created>1720738588873</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1720738588873</updated>
+    </task>
+    <task id="LOCAL-00024" summary="date and time now work">
+      <option name="closed" value="true" />
+      <created>1720739065920</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1720739065920</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Finished working product without unit tests">
+      <option name="closed" value="true" />
+      <created>1720739514637</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1720739514637</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Finished working product without unit tests">
+      <option name="closed" value="true" />
+      <created>1720739712371</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1720739712372</updated>
+    </task>
+    <task id="LOCAL-00027" summary="working tests for shipment and strategies">
+      <option name="closed" value="true" />
+      <created>1720755911435</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1720755911435</updated>
+    </task>
+    <task id="LOCAL-00028" summary="working tests for shipment and strategies">
+      <option name="closed" value="true" />
+      <created>1720756226576</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1720756226576</updated>
+    </task>
+    <task id="LOCAL-00029" summary="working tests for shipment and strategies">
+      <option name="closed" value="true" />
+      <created>1721071803081</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1721071803081</updated>
+    </task>
+    <task id="LOCAL-00030" summary="TrackerViewHelperTests up and working">
+      <option name="closed" value="true" />
+      <created>1721082871893</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1721082871893</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Everything">
+      <option name="closed" value="true" />
+      <created>1721083438415</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1721083438415</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="button and search work" />
+    <MESSAGE value="search with stop tracking" />
+    <MESSAGE value="search multiple packages and scroll" />
+    <MESSAGE value="UI should be complete" />
+    <MESSAGE value="added test.txt" />
+    <MESSAGE value="working on tracking simulator, committing while some stuff is working, working on adding shipments" />
+    <MESSAGE value="strategies are updating but I am working on the ui to update as well" />
+    <MESSAGE value="fixed random imports" />
+    <MESSAGE value="Just working on getting UI to update with the rest of the shipments" />
+    <MESSAGE value="renaming observer and subject" />
+    <MESSAGE value="This is good" />
+    <MESSAGE value="before subject refactor" />
+    <MESSAGE value="mutable list of" />
+    <MESSAGE value="updating almost there" />
+    <MESSAGE value="print statements to debug" />
+    <MESSAGE value="no more tracked shipment. Using the shipment as what is being observed now" />
+    <MESSAGE value="ui will now show what shipments you are tracking!!" />
+    <MESSAGE value="tracks and updates the status" />
+    <MESSAGE value="updates work for reals" />
+    <MESSAGE value="updates work really good" />
+    <MESSAGE value="date and time now work" />
+    <MESSAGE value="Finished working product without unit tests" />
+    <MESSAGE value="working tests for shipment and strategies" />
+    <MESSAGE value="TrackerViewHelperTests up and working" />
+    <MESSAGE value="Everything" />
+    <option name="LAST_COMMIT_MESSAGE" value="Everything" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/tracking$UpdateStrategyTest.ic" NAME="UpdateStrategyTest Coverage Results" MODIFIED="1720755368942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/tracking$Tests_in__tracking_test_.ic" NAME="Tests in 'tracking.test' Coverage Results" MODIFIED="1721322650396" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

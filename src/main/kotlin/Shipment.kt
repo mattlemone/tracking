@@ -11,7 +11,7 @@ data class Shipment(
     var expectedDeliveryDateTimestamp: LocalDateTime,
     var currentLocation: String,
     var strategy: UpdateStrategy? = null
-) : ShipmentSubject {
+) : ShipmentSubject, Observable {
     private val observers = mutableListOf<ShipmentObserver>()
 
     override fun registerObserver(observer: ShipmentObserver) {
