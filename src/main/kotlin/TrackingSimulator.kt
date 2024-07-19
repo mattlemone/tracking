@@ -18,16 +18,37 @@ class TrackingSimulator {
     }
 
     private fun processUpdate(line: List<String>) {
-
-        if (line.size < 3) return
+        if (line.size < 4) return // Ensure there are enough elements in the line list
 
         val updateType = line[0]
         val shipmentId = line[1]
-        val otherInfo = line.drop(2)
+        val shipmentTypeInput = line[2].uppercase() // Get the shipment type from the line list
+        val otherInfo = line.drop(3) // Remaining elements
+
+        // Map the shipment type input to ShipmentType enum
+        val shipmentType = when (shipmentTypeInput) {
+            "STANDARD" -> ShipmentType.STANDARD
+            "EXPRESS" -> ShipmentType.EXPRESS
+            "OVERNIGHT" -> ShipmentType.OVERNIGHT
+            "BULK" -> ShipmentType.BULK
+            else -> {
+                println("Invalid shipment type. Defaulting to STANDARD.")
+                ShipmentType.STANDARD
+            }
+        }
 
         var shipment = findShipment(shipmentId)
         if (shipment == null) {
-            shipment = Shipment(shipmentId, "", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "", null)
+            shipment = ShipmentFactory.createShipment(
+                shipmentType,
+                shipmentId,
+                "",  // Initial status
+                mutableStateListOf(),  // Initial notes
+                mutableStateListOf(),  // Initial update history
+                LocalDateTime.now(),  // Initial expected delivery date
+                "",  // Initial current location
+                null  // Initial strategy
+            )
             addShipment(shipment)
         }
 
