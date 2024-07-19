@@ -3,14 +3,20 @@ import junit.framework.TestCase.assertEquals
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZoneOffset
 import kotlin.test.Test
 
 class UpdateStrategyTest {
 
     @Test
     fun `CreatedStrategy should update shipment status to created`() {
-        val shipment = Shipment("123", "", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "")
+        val shipment = StandardShipment(
+            id = "123",
+            status = "",
+            notes = mutableStateListOf(),
+            updateHistory = mutableStateListOf(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
+            currentLocation = ""
+        )
         val strategy = CreatedStrategy()
 
         strategy.processUpdate(shipment, listOf("1625074800000"))
@@ -20,7 +26,14 @@ class UpdateStrategyTest {
 
     @Test
     fun `ShippedStrategy should update shipment status to shipped`() {
-        val shipment = Shipment("123", "Created", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "")
+        val shipment = StandardShipment(
+            id = "123",
+            status = "Created",
+            notes = mutableStateListOf(),
+            updateHistory = mutableStateListOf(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
+            currentLocation = ""
+        )
         val strategy = ShippedStrategy()
 
         val currentTime = System.currentTimeMillis()
@@ -39,7 +52,14 @@ class UpdateStrategyTest {
 
     @Test
     fun `NoteAddedStrategy should add note to shipment`() {
-        val shipment = Shipment("123", "", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "")
+        val shipment = StandardShipment(
+            id = "123",
+            status = "",
+            notes = mutableStateListOf(),
+            updateHistory = mutableStateListOf(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
+            currentLocation = ""
+        )
         val strategy = NoteAddedStrategy()
 
         strategy.processUpdate(shipment, listOf("", "New note"))
@@ -50,7 +70,14 @@ class UpdateStrategyTest {
 
     @Test
     fun `LostStrategy should update shipment status to Lost`() {
-        val shipment = Shipment("123", "", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "")
+        val shipment = StandardShipment(
+            id = "123",
+            status = "",
+            notes = mutableStateListOf(),
+            updateHistory = mutableStateListOf(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
+            currentLocation = ""
+        )
         val strategy = LostStrategy()
 
         strategy.processUpdate(shipment, listOf("1625074800000"))
@@ -60,7 +87,14 @@ class UpdateStrategyTest {
 
     @Test
     fun `CanceledStrategy should update shipment status to Canceled`() {
-        val shipment = Shipment("123", "", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "")
+        val shipment = StandardShipment(
+            id = "123",
+            status = "",
+            notes = mutableStateListOf(),
+            updateHistory = mutableStateListOf(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
+            currentLocation = ""
+        )
         val strategy = CanceledStrategy()
 
         strategy.processUpdate(shipment, listOf("1625074800000"))
@@ -70,12 +104,12 @@ class UpdateStrategyTest {
 
     @Test
     fun `LocationStrategy should update current location and add shipping update`() {
-        val shipment = Shipment(
+        val shipment = StandardShipment(
             id = "123",
             status = "In Transit",
             notes = mutableStateListOf(),
             updateHistory = mutableStateListOf(),
-            expectedDeliveryDateTimestamp = LocalDateTime.now(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
             currentLocation = "Old Location"
         )
         val strategy = LocationStrategy()
@@ -100,12 +134,12 @@ class UpdateStrategyTest {
 class DeliveredStrategyTest {
     @Test
     fun `DeliveredStrategy should update status to delivered and add shipping update`() {
-        val shipment = Shipment(
+        val shipment = StandardShipment(
             id = "123",
             status = "In Transit",
             notes = mutableStateListOf(),
             updateHistory = mutableStateListOf(),
-            expectedDeliveryDateTimestamp = LocalDateTime.now(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
             currentLocation = "Current Location"
         )
         val strategy = DeliveredStrategy()

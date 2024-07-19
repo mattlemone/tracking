@@ -1,5 +1,5 @@
 import androidx.compose.runtime.mutableStateListOf
-import com.example.shipmenttracking.TrackerViewHelper
+import com.example.shipmenttracking.*
 import java.time.LocalDateTime
 import kotlin.test.*
 
@@ -16,7 +16,15 @@ class TrackerViewHelperTests {
 
     @Test
     fun `trackShipment should add new shipment to tracked list`() {
-        simulator.setShipmentToReturn(Shipment("123", "In Transit", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), ""))
+        val shipment = StandardShipment(
+            id = "123",
+            status = "In Transit",
+            notes = mutableStateListOf(),
+            updateHistory = mutableStateListOf(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
+            currentLocation = "Warehouse A"
+        )
+        simulator.setShipmentToReturn(shipment)
 
         viewHelper.trackShipment("123")
 
@@ -26,7 +34,15 @@ class TrackerViewHelperTests {
 
     @Test
     fun `trackShipment should not add duplicate shipment`() {
-        simulator.setShipmentToReturn(Shipment("123", "In Transit", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), ""))
+        val shipment = StandardShipment(
+            id = "123",
+            status = "In Transit",
+            notes = mutableStateListOf(),
+            updateHistory = mutableStateListOf(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
+            currentLocation = "Warehouse A"
+        )
+        simulator.setShipmentToReturn(shipment)
 
         viewHelper.trackShipment("123")
         viewHelper.trackShipment("123")
@@ -45,7 +61,15 @@ class TrackerViewHelperTests {
 
     @Test
     fun `stopTracking should remove shipment from tracked list`() {
-        simulator.setShipmentToReturn(Shipment("123", "In Transit", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), ""))
+        val shipment = StandardShipment(
+            id = "123",
+            status = "In Transit",
+            notes = mutableStateListOf(),
+            updateHistory = mutableStateListOf(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
+            currentLocation = "Warehouse A"
+        )
+        simulator.setShipmentToReturn(shipment)
 
         viewHelper.trackShipment("123")
         viewHelper.stopTracking("123")
@@ -55,11 +79,26 @@ class TrackerViewHelperTests {
 
     @Test
     fun `update should update existing shipment in tracked list`() {
-        val initialShipment = Shipment("123", "In Transit", mutableStateListOf(), mutableStateListOf(), LocalDateTime.now(), "")
+        val initialShipment = StandardShipment(
+            id = "123",
+            status = "In Transit",
+            notes = mutableStateListOf(),
+            updateHistory = mutableStateListOf(),
+            expectedDeliveryDateTimestamp = LocalDateTime.now().plusDays(1),
+            currentLocation = "Warehouse A"
+        )
         simulator.setShipmentToReturn(initialShipment)
         viewHelper.trackShipment("123")
 
-        val updatedShipment = initialShipment.copy(status = "Delivered")
+        // Manually create a new shipment with updated status
+        val updatedShipment = StandardShipment(
+            id = "123",
+            status = "Delivered",
+            notes = initialShipment.notes,
+            updateHistory = initialShipment.updateHistory,
+            expectedDeliveryDateTimestamp = initialShipment.expectedDeliveryDateTimestamp,
+            currentLocation = initialShipment.currentLocation
+        )
         viewHelper.update(updatedShipment)
 
         assertEquals("Delivered", viewHelper.trackedShipments[0].status)
