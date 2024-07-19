@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tracker</title>
     <script type="text/javascript">
-        function sendData(){
+        function sendData() {
             console.log("Button clicked");
             fetch("/data", {
                 method: "POST",
@@ -16,11 +16,16 @@
             }).then(response => {
                 if (response.ok) {
                     console.log("Data sent successfully");
+                    document.getElementById("errorMessage").innerText = "";
                 } else {
-                    console.log("Failed to send data");
+                    response.text().then(text => {
+                        console.log("Failed to send data: " + text);
+                        document.getElementById("errorMessage").innerText = "Error: " + text;
+                    });
                 }
             }).catch(error => {
                 console.error("Error:", error);
+                document.getElementById("errorMessage").innerText = "Error: " + error.message;
             });
         }
     </script>
@@ -30,8 +35,11 @@
     <h2>Update Shipment</h2>
     <div>Example: Update Type, Shipment ID, Shipment Type, Time Stamp, other information</div>
     <br>
+    <div>Comma Separated</div>
     <input type="text" id="input" name="userInput">
     <button onclick="sendData()">Update Shipment</button>
+    <br>
+    <span id="errorMessage" style="color: red;"></span>
 </div>
 </body>
 </html>
